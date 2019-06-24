@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.hxgd.onemap.dao.TaskRefuseEditMapper" >
+  <resultMap id="BaseResultMap" type="com.hxgd.onemap.entity.TaskRefuseEdit" >
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="code" property="code" jdbcType="VARCHAR" />
+    <result column="daily_id" property="dailyId" jdbcType="INTEGER" />
+    <result column="cement_id" property="cementId" jdbcType="INTEGER" />
+    <result column="section_id" property="sectionId" jdbcType="INTEGER" />
+    <result column="car_id" property="carId" jdbcType="INTEGER" />
+    <result column="route_id" property="routeId" jdbcType="INTEGER" />
+    <result column="driver" property="driver" jdbcType="INTEGER" />
+    <result column="tasks" property="tasks" jdbcType="INTEGER" />
+    <result column="real_up" property="realUp" jdbcType="DOUBLE" />
+    <result column="real_up_img" property="realUpImg" jdbcType="VARCHAR" />
+    <result column="real_down" property="realDown" jdbcType="DOUBLE" />
+    <result column="real_down_img" property="realDownImg" jdbcType="VARCHAR" />
+    <result column="isOK" property="isok" jdbcType="INTEGER" />
+    <result column="state" property="state" jdbcType="INTEGER" />
+    <result column="weight2" property="weight2" jdbcType="INTEGER" />
+    <result column="weight" property="weight" jdbcType="DOUBLE" />
+    <result column="pass1" property="pass1" jdbcType="INTEGER" />
+    <result column="pass2" property="pass2" jdbcType="INTEGER" />
+    <result column="remark" property="remark" jdbcType="VARCHAR" />
+    <result column="fin_time" property="finTime" jdbcType="TIMESTAMP" />
+    <result column="pici" property="pici" jdbcType="INTEGER" />
+    <result column="license" property="license" jdbcType="VARCHAR" />
+    <result column="riqi" property="riqi" jdbcType="VARCHAR" />
+    <result column="batch" property="batch" jdbcType="VARCHAR" />
+    <result column="gen_date" property="genDate" jdbcType="TIMESTAMP" />
+    <result column="huowu_id" property="huowuId" jdbcType="INTEGER" />
+    <result column="huowu_name" property="huowuName" jdbcType="VARCHAR" />
+    <result column="voucher" property="voucher" jdbcType="VARCHAR" />
+    <result column="accept_time" property="acceptTime" jdbcType="TIMESTAMP" />
+    <result column="up_time" property="upTime" jdbcType="TIMESTAMP" />
+    <result column="down_time" property="downTime" jdbcType="TIMESTAMP" />
+    <result column="up_submit_time" property="upSubmitTime" jdbcType="TIMESTAMP" />
+    <result column="down_submit_time" property="downSubmitTime" jdbcType="TIMESTAMP" />
+    <result column="isUp" property="isup" jdbcType="INTEGER" />
+    <result column="isDown" property="isdown" jdbcType="INTEGER" />
+    <result column="remarkUp" property="remarkup" jdbcType="VARCHAR" />
+    <result column="remarkDown" property="remarkdown" jdbcType="VARCHAR" />
+    <result column="isChangeCar" property="ischangecar" jdbcType="INTEGER" />
+    <result column="beforeCar" property="beforecar" jdbcType="VARCHAR" />
+    <result column="upOverTime" property="upovertime" jdbcType="TIMESTAMP" />
+    <result column="traverOverTime" property="traverovertime" jdbcType="TIMESTAMP" />
+    <result column="errorMsg" property="errormsg" jdbcType="VARCHAR" />
+    <result column="errorFile" property="errorfile" jdbcType="VARCHAR" />
+    <result column="isUpOver" property="isupover" jdbcType="INTEGER" />
+    <result column="isTraverOver" property="istraverover" jdbcType="INTEGER" />
+  </resultMap>
+</mapper>

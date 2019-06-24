@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.hxgd.onemap.dao.RouteMapper" >
+  <resultMap id="BaseResultMap" type="com.hxgd.onemap.entity.Route" >
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="name" property="name" jdbcType="VARCHAR" />
+    <result column="content" property="content" jdbcType="VARCHAR" />
+    <result column="cement" property="cement" jdbcType="INTEGER" />
+    <result column="section" property="section" jdbcType="INTEGER" />
+    <result column="car_type" property="carType" jdbcType="INTEGER" />
+    <result column="mile" property="mile" jdbcType="REAL" />
+    <result column="time" property="time" jdbcType="REAL" />
+    <result column="up_time" property="upTime" jdbcType="REAL" />
+    <result column="down_time" property="downTime" jdbcType="REAL" />
+    <result column="wage" property="wage" jdbcType="REAL" />
+    <result column="oil" property="oil" jdbcType="REAL" />
+    <result column="fee" property="fee" jdbcType="REAL" />
+    <result column="mat_id" property="matId" jdbcType="INTEGER" />
+    <result column="fit" property="fit" jdbcType="INTEGER" />
+    <result column="moto_id" property="motoId" jdbcType="INTEGER" />
+    <result column="accout" property="accout" jdbcType="VARCHAR" />
+  </resultMap>
+</mapper>

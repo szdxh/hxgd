@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.hxgd.onemap.dao.DailyHistoryMapper" >
+  <resultMap id="BaseResultMap" type="com.hxgd.onemap.entity.DailyHistory" >
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="code" property="code" jdbcType="VARCHAR" />
+    <result column="section_id" property="sectionId" jdbcType="INTEGER" />
+    <result column="section" property="section" jdbcType="VARCHAR" />
+    <result column="capacity" property="capacity" jdbcType="DOUBLE" />
+    <result column="stock" property="stock" jdbcType="DOUBLE" />
+    <result column="stock_source" property="stockSource" jdbcType="INTEGER" />
+    <result column="bite" property="bite" jdbcType="DOUBLE" />
+    <result column="stock_line" property="stockLine" jdbcType="INTEGER" />
+    <result column="stock_ask_time" property="stockAskTime" jdbcType="TIMESTAMP" />
+    <result column="day_dosage_ask" property="dayDosageAsk" jdbcType="INTEGER" />
+    <result column="half_month" property="halfMonth" jdbcType="DOUBLE" />
+    <result column="day_dosage" property="dayDosage" jdbcType="DOUBLE" />
+    <result column="on_road" property="onRoad" jdbcType="DOUBLE" />
+    <result column="estimated_shipments" property="estimatedShipments" jdbcType="DOUBLE" />
+    <result column="route_time" property="routeTime" jdbcType="DOUBLE" />
+    <result column="car_type" property="carType" jdbcType="INTEGER" />
+    <result column="car_type_weight" property="carTypeWeight" jdbcType="DOUBLE" />
+    <result column="task_nums" property="taskNums" jdbcType="INTEGER" />
+    <result column="first_task" property="firstTask" jdbcType="INTEGER" />
+    <result column="first_overplus" property="firstOverplus" jdbcType="INTEGER" />
+    <result column="second_task" property="secondTask" jdbcType="INTEGER" />
+    <result column="second_overplus" property="secondOverplus" jdbcType="INTEGER" />
+    <result column="third_task" property="thirdTask" jdbcType="INTEGER" />
+    <result column="remark" property="remark" jdbcType="VARCHAR" />
+    <result column="add_time" property="addTime" jdbcType="DATE" />
+    <result column="is_OK" property="isOk" jdbcType="INTEGER" />
+    <result column="statue" property="statue" jdbcType="INTEGER" />
+    <result column="planeStock" property="planestock" jdbcType="DOUBLE" />
+    <result column="materia" property="materia" jdbcType="INTEGER" />
+    <result column="batch" property="batch" jdbcType="VARCHAR" />
+    <result column="huowu_id" property="huowuId" jdbcType="INTEGER" />
+    <result column="huowu_name" property="huowuName" jdbcType="VARCHAR" />
+    <result column="gen_date" property="genDate" jdbcType="TIMESTAMP" />
+  </resultMap>
+</mapper>

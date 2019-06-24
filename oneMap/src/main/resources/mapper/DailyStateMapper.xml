@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.hxgd.onemap.dao.DailyStateMapper" >
+  <resultMap id="BaseResultMap" type="com.hxgd.onemap.entity.DailyState" >
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="daily_id" property="dailyId" jdbcType="INTEGER" />
+    <result column="cement" property="cement" jdbcType="VARCHAR" />
+    <result column="section" property="section" jdbcType="VARCHAR" />
+    <result column="plan" property="plan" jdbcType="DOUBLE" />
+    <result column="not_is" property="notIs" jdbcType="DOUBLE" />
+    <result column="on_road" property="onRoad" jdbcType="DOUBLE" />
+    <result column="finish" property="finish" jdbcType="DOUBLE" />
+    <result column="code" property="code" jdbcType="VARCHAR" />
+    <result column="riqi" property="riqi" jdbcType="VARCHAR" />
+    <result column="e_task" property="eTask" jdbcType="INTEGER" />
+    <result column="statue" property="statue" jdbcType="INTEGER" />
+    <result column="edit_plan" property="editPlan" jdbcType="DOUBLE" />
+    <result column="remark" property="remark" jdbcType="VARCHAR" />
+    <result column="batch" property="batch" jdbcType="VARCHAR" />
+    <result column="huowu_id" property="huowuId" jdbcType="INTEGER" />
+    <result column="huowu_name" property="huowuName" jdbcType="VARCHAR" />
+  </resultMap>
+</mapper>
