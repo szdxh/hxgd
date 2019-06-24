@@ -64,8 +64,7 @@ import java.util.Map;
  * Http工具类
  */
 public class HttpUtil {
-    private static final Logger LOG = LoggerFactory
-            .getLogger(HttpUtil.class);
+
 
     /**
      * HTTP GET
@@ -242,7 +241,7 @@ public class HttpUtil {
         //headers.put(SystemHeader.X_CA_NONCE, UUID.randomUUID().toString());
         //headers.put(SystemHeader.X_CA_KEY, appKey);
         String sign = SignUtil.sign(appSecret, method, path, headers, queries, bodies);
-        LOG.info("sign:{}", sign);
+        System.out.println("sign:{}"+ sign);
         headers.put(SystemHeader.X_CA_SIGNATURE, Constants.AUTH_PREFIX + " " + appKey + Constants.SPE2_COLON + sign);
 
         return headers;

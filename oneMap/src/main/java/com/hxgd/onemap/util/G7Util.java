@@ -3,8 +3,6 @@ package com.hxgd.onemap.util;
 import java.util.HashMap;
 import java.util.Map;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import com.hxgd.onemap.constant.Constants;
 import com.hxgd.onemap.constant.ContentType;
@@ -14,7 +12,7 @@ import com.hxgd.onemap.enums.Method;
 
 public class G7Util {
 	
-	private final static Logger log = LoggerFactory.getLogger(G7Util.class);
+
 	
 	private final static String ACCESS_ID = "7vhr0b";
 			
@@ -32,7 +30,6 @@ public class G7Util {
 	    request.setQueries(querys);
 	    //调用服务端
 	    Response response = Client.execute(request);
-	    log.info(response.getBody());
 		return response.getBody();
 	}
 	
@@ -50,7 +47,6 @@ public class G7Util {
 	    request.setJsonStrBody(body);
 	    //调用服务端
 	    Response response = Client.execute(request);
-	    log.info(response.getBody());
 		return response.getBody();
 		
 	}

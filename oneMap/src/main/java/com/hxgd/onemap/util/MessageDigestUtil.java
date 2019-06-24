@@ -32,8 +32,7 @@ import java.security.NoSuchAlgorithmException;
  * 消息摘要工具
  */
 public class MessageDigestUtil {
-    private static final Logger LOG = LoggerFactory
-            .getLogger(MessageDigestUtil.class);
+  
     /**
      * 先进行MD5摘要再进行Base64编码获取摘要字符串
      *
@@ -45,7 +44,7 @@ public class MessageDigestUtil {
             throw new IllegalArgumentException("inStr can not be null");
         }
         String base65Md5Str = base64AndMD5(toBytes(str));
-        LOG.info("base65Md5Str:{}",base65Md5Str);
+        System.out.println("base65Md5Str:{}"+base65Md5Str);
 
         return base65Md5Str;
     }

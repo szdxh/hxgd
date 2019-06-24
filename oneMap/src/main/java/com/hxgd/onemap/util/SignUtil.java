@@ -23,8 +23,7 @@ package com.hxgd.onemap.util;
 
 import org.apache.commons.codec.binary.Base64;
 import org.apache.commons.lang.StringUtils;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+
 
 import com.hxgd.onemap.constant.Constants;
 import com.hxgd.onemap.constant.HttpHeader;
@@ -37,8 +36,7 @@ import java.util.*;
  * 签名工具
  */
 public class SignUtil {
-    private static final Logger LOG = LoggerFactory
-            .getLogger(SignUtil.class);
+
     /**
      * 计算签名
      *
@@ -61,7 +59,7 @@ public class SignUtil {
 
             String stringToSign = buildStringToSign(method, path, headers, querys, bodys);
 
-            LOG.info("StringToSign:\n{}",stringToSign);
+            System.out.println("StringToSign:\n{}"+stringToSign);
             return new String(Base64.encodeBase64(
                     hmacSha256.doFinal(stringToSign.getBytes(Constants.ENCODING))),
                     Constants.ENCODING);
