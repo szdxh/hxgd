@@ -19,7 +19,7 @@ public class getBodyJsonString {
 	* @return void    返回类型
 	* @throws
 	 */
-	public static String getBodyParams(Map<String,String> params) {
+	public static String getBodyParams(Map<String, String> params) {
 		String body = "{\n";
 		 for(String key:params.keySet())
 	        {

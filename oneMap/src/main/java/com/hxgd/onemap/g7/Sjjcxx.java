@@ -78,5 +78,62 @@ public class Sjjcxx {
 		params.put("orgcode", orgcode);
 		return G7Util.postRest("/v1/base/driver/edit_driver", getBodyJsonString.getBodyParams(params));
 	}
+	
+	/**
+	 * 
+	* @Title: bind_driver
+	* @Description: TODO(司机绑定车辆 操作司机和车辆的绑定，通过车辆的id和司机id绑定关系)
+	* @param @param truck_id 车辆id
+	* @param @param driver_id 司机id
+	* @param @param bind_truck_type 主驾或副驾 1为主驾驶 2为副驾驶
+	* @param @return
+	* @param @throws Exception    参数
+	* @return String    返回类型
+	* @throws
+	 */
+	public static String bind_driver(String truck_id,String driver_id,String bind_truck_type) throws Exception {
+		Map<String,String> params = new HashMap<String,String>();
+		params.put("truck_id",truck_id);
+		params.put("driver_id", driver_id);
+		params.put("bind_truck_type", bind_truck_type);
+		return G7Util.postRest("/v1/base/driver/bind_driver", getBodyJsonString.getBodyParams(params));
+	}
+	
+	/**
+	 * 
+	* @Title: driver_list
+	* @Description: TODO(查询司机信息 查询司机，返回司机的车辆id，司机姓名，司机身份证号等已经设置和编辑的信息)
+	* @param @param updatetime 更新时间
+	* @param @param orgcode_like 机构号，右匹配
+	* @param @return
+	* @param @throws Exception    参数
+	* @return String    返回类型
+	* @throws
+	 */
+	public static String driver_list(String updatetime,String orgcode_like) throws Exception {
+		Map<String,String> params = new HashMap<String,String>();
+		params.put("updatetime",updatetime);
+		params.put("orgcode_like", orgcode_like);
+		return G7Util.postRest("/v1/base/driver/driver_list", getBodyJsonString.getBodyParams(params));
+	}
+	
+	/**
+	 * 
+	* @Title: delete_driver
+	* @Description: TODO(删除司机，删除指定司机的所有信息)
+	* @param @param driver_ids 司机ID，多个ID用,隔开，最多100个
+	* @param @param orgcode_like 机构号，右匹配
+	* @param @return
+	* @param @throws Exception    参数
+	* @return String    返回类型
+	* @throws
+	 */
+	public static String delete_driver(String driver_ids,String orgcode_like) throws Exception {
+		Map<String,String> params = new HashMap<String,String>();
+		params.put("driver_ids",driver_ids);
+		params.put("orgcode_like", orgcode_like);
+		return G7Util.postRest("/v1/base/driver/delete_driver", getBodyJsonString.getBodyParams(params));
+	}
+
 
 }
