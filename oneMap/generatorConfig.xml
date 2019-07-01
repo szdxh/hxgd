@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE generatorConfiguration
+        PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN"
+        "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd">
+
+<generatorConfiguration>
+    <context id="MysqlContext" targetRuntime="MyBatis3Simple" defaultModelType="flat">
+        <property name="beginningDelimiter" value="`"/>
+        <property name="endingDelimiter" value="`"/>
+
+        <plugin type="tk.mybatis.mapper.generator.MapperPlugin">
+            <property name="mappers" value="com.hxgd.onemap.util.MyMapper"/>
+        </plugin>
+
+        <jdbcConnection driverClass="com.mysql.jdbc.Driver"
+                        connectionURL="jdbc:mysql://192.168.3.4:3306/bi"
+                        userId="root"
+                        password="123456">
+        </jdbcConnection>
+
+        <!-- 对于生成的pojo所在包 -->
+        <javaModelGenerator targetPackage="com.hxgd.onemap.entity" targetProject="src/main/java"/>
+
+		<!-- 对于生成的mapper所在目录 -->
+        <sqlMapGenerator targetPackage="mapper" targetProject="src/main/resources"/>
+
+		<!-- 配置mapper对应的java映射 -->
+        <javaClientGenerator targetPackage="com.hxgd.onemap.dao" targetProject="src/main/java"
+                             type="XMLMAPPER"/>
+
+		
+		<table tableName="area"></table>
+		<table tableName="car"></table>
+		<table tableName="car_type"></table>
+		<table tableName="carry"></table>
+		<table tableName="cement"></table>
+		<table tableName="daily"></table>
+		<table tableName="daily_history"></table>
+		<table tableName="daily_pre"></table>
+		<table tableName="daily_state"></table>
+		<table tableName="daily_state_history"></table>
+		<table tableName="day_batch"></table>
+		<table tableName="dicts"></table>
+		<table tableName="huowu"></table>
+		<table tableName="materials"></table>
+		<table tableName="motorcade"></table>
+		<table tableName="msg"></table>
+		<table tableName="route"></table>
+		<table tableName="section"></table>
+		<table tableName="task"></table>
+		<table tableName="task_history"></table>
+		<table tableName="task_refuse"></table>
+		<table tableName="task_refuse_edit"></table>
+		<table tableName="users"></table>
+	
+    </context>
+</generatorConfiguration>
