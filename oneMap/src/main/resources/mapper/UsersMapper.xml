@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.hxgd.onemap.dao.UsersMapper" >
+  <resultMap id="BaseResultMap" type="com.hxgd.onemap.entity.Users" >
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="eova_id" property="eovaId" jdbcType="INTEGER" />
+    <result column="login_id" property="loginId" jdbcType="VARCHAR" />
+    <result column="login_pwd" property="loginPwd" jdbcType="VARCHAR" />
+    <result column="nickname" property="nickname" jdbcType="VARCHAR" />
+    <result column="rid" property="rid" jdbcType="INTEGER" />
+    <result column="shenfenid" property="shenfenid" jdbcType="VARCHAR" />
+  </resultMap>
+</mapper>

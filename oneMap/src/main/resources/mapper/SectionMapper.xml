@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.hxgd.onemap.dao.SectionMapper" >
+  <resultMap id="BaseResultMap" type="com.hxgd.onemap.entity.Section" >
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="name" property="name" jdbcType="VARCHAR" />
+    <result column="carry_id" property="carryId" jdbcType="INTEGER" />
+    <result column="location" property="location" jdbcType="VARCHAR" />
+    <result column="area" property="area" jdbcType="INTEGER" />
+    <result column="capacity" property="capacity" jdbcType="DOUBLE" />
+    <result column="stock" property="stock" jdbcType="DOUBLE" />
+    <result column="daily" property="daily" jdbcType="DOUBLE" />
+    <result column="red_line" property="redLine" jdbcType="DOUBLE" />
+    <result column="contact" property="contact" jdbcType="INTEGER" />
+    <result column="control" property="control" jdbcType="INTEGER" />
+    <result column="deal" property="deal" jdbcType="INTEGER" />
+  </resultMap>
+</mapper>
