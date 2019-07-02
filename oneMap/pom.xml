@@ -200,7 +200,7 @@
             <version>7.2.18</version>
         </dependency>
         
-        	<!--lombok 简化代码。不必写个体和se't  -->
+        	<!--lombok 简化代码。不必写get和set  -->
 			<dependency>
 			    <groupId>org.projectlombok</groupId>
 			    <artifactId>lombok</artifactId>
