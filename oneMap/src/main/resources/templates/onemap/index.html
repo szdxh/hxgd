@@ -11,12 +11,22 @@
 		</style>  
         <script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&amp;ak=qPD0GxOf7PGIlKGoWMho6d5uHQvL7SH8">
 		</script>
+		<script type="text/javascript" src="https://code.jquery.com/jquery-3.4.1.min.js">
+		</script>
+		
+		<!-- 如果不使用base,那么这种方式也是可以的,@{/你的文件路径},缺陷就是每次引用都必须带上th:src="@{/}"这个才能正确引用,具体用什么方式,看你们自己 -->
+    <script th:src="@{/js/laydate/laydate.js}"></script>
+      
 		
     </head> 
     <body>
        <div id="father">
        		<div id="head">
-       			这是头
+       			<form action="form_action.asp" method="get">
+				 开始时间 <input id="chooseDataStart" type="text"/>
+				 结束时间<input id="chooseDataEnd" type="text"/>
+				 	  <input type="button" value="查询历史轨迹" onclick="history_location()" />
+				</form>
        		</div>
        		
        		<div id="bodys">
@@ -24,23 +34,47 @@
        		</div>
        		
        		<div id="foot">
-       			这是底部
+       			<form action="" method="get">
+				 开始时间 <input id="chooseFuelStart" type="text"/>
+				 结束时间<input id="chooseFuelEnd" type="text"/>
+				 	  <input type="button" value="查询油耗" onclick="fuel()" />
+				</form>
        		</div>
        </div>
       <div th:fragment="scripts(scripts)">
 	        <script th:inline="javascript">
 	            window.lng = [[${G7DataCurrent_location.lng}]];
 	            window.lat = [[${G7DataCurrent_location.lat}]];
+	            window.plate_num = [[${plate_num}]];
 	        </script>
-		</div>
-           <script type="text/javascript"> 
+		</div> 
+           <script type="text/javascript">
+           
+           laydate.render({
+        	   elem: '#chooseDataStart' ,
+        	   type:'datetime'
+        	 });
+           laydate.render({
+        	   elem: '#chooseDataEnd' ,
+        	   type:'datetime'
+        	 });
+           
+           laydate.render({
+        	   elem: '#chooseFuelStart' ,
+        	   type:'datetime'
+        	 });
+           laydate.render({
+        	   elem: '#chooseFuelEnd' ,
+        	   type:'datetime'
+        	 });
 		var map = new BMap.Map("bodys"); 
 		var mapStyle={  style : "midnight" }  
 		map.setMapStyle(mapStyle);
 		// 创建地图实例 
 	
-		var lng =   window.lng;
-		var lat =   window.lat;
+	 	var lng =   window.lng;
+		var lat =   window.lat; 
+		
 	
 		var point = new BMap.Point(lng, lat);
 		// 创建点坐标  
@@ -51,6 +85,78 @@
 		var myIcon = new BMap.Icon("http://api.map.baidu.com/img/markers.png", new BMap.Size(23, 25));
 		var mk = new BMap.Marker(point,{icon:myIcon});//创建标注图标
 		map.addOverlay(mk);//将标注添加到地图中
+		
+		function history_location(){
+			var plate_num =  window.plate_num;
+			var startTime = $("#chooseDataStart").val();
+			var endTime = $("#chooseDataEnd").val();
+				
+			$.ajax({
+				url:"http://192.168.3.12:8080/oneMap/test/history_location", 
+				type:"POST",
+				dataType:"json",
+				data:{
+					"plate_num":plate_num,
+					"startTime":startTime,
+					"endTime":endTime
+				},
+				success: function(datas){
+					
+					var arrs = [];
+					datas.forEach((item,index,datas)=> {
+						arrs.push(new BMap.Point(datas[index]["lng"],datas[index]["lat"]))
+					});
+					var polyline = new BMap.Polyline(arrs,
+					    {strokeColor:"blue", strokeWeight:6, strokeOpacity:0.5}
+					    );
+					map.addOverlay(polyline);
+					//创建小车图片
+				 	var carIconstart = new BMap.Icon("http://api.map.baidu.com/img/markers.png", new BMap.Size(23, 25));
+					
+					var carIconend = new BMap.Icon("http://api.map.baidu.com/img/markers.png", new BMap.Size(23, 25));
+					
+					var start = new BMap.Marker(arrs[0],{icon:carIconstart});//创建标注图标
+					var end = new BMap.Marker(arrs[arrs.length-1],{icon:carIconend});//创建标注图标
+			
+					map.addOverlay(start);
+					map.addOverlay(end); 
+					map.removeOverlay(mk);
+		       
+		      	},
+		      	error:function(e){
+		      		console.log(e)
+		      	}
+				});
+		}
+		
+		function fuel(){
+			var plate_num =  window.plate_num;
+			var startTime = $("#chooseFuelStart").val();
+			var endTime = $("#chooseFuelEnd").val();
+			/*<![CDATA[*/
+				var params = "?plate_num="+plate_num+"&&from="+startTime+"&&to="+endTime; 
+				/*]]>*/
+		
+			$.ajax({
+				url:"http://192.168.3.12:8080/oneMap/test/fuel"+params, 
+				type:"get",
+				dataType:"json",
+				success: function(datas){
+					console.log("油耗数据=="+datas["fuel"])
+					console.log("驾驶时长=="+datas["driving_time"])
+					console.log("行驶里程=="+datas["mileage"])
+		       
+		      	},
+		      	error:function(e){
+		      		console.log(e)
+		      	}
+			
+		})
+		}
+			
+		
+		
+		
 	</script>  
     </body>
 

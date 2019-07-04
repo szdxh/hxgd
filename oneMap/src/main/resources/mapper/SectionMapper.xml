@@ -11,6 +11,7 @@
     <result column="location" property="location" jdbcType="VARCHAR" />
     <result column="area" property="area" jdbcType="INTEGER" />
     <result column="capacity" property="capacity" jdbcType="DOUBLE" />
+    <result column="bite" property="bite" jdbcType="DOUBLE" />
     <result column="stock" property="stock" jdbcType="DOUBLE" />
     <result column="daily" property="daily" jdbcType="DOUBLE" />
     <result column="red_line" property="redLine" jdbcType="DOUBLE" />

@@ -10,6 +10,7 @@
     <result column="content" property="content" jdbcType="VARCHAR" />
     <result column="cement" property="cement" jdbcType="INTEGER" />
     <result column="section" property="section" jdbcType="INTEGER" />
+    <result column="prnsection" property="prnsection" jdbcType="VARCHAR" />
     <result column="car_type" property="carType" jdbcType="INTEGER" />
     <result column="mile" property="mile" jdbcType="REAL" />
     <result column="time" property="time" jdbcType="REAL" />

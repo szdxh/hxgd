@@ -2,8 +2,8 @@ package com.hxgd.onemap.entity;
 
 import javax.persistence.*;
 
-@Table(name = "day_batch")
-public class DayBatch {
+@Table(name = "moto_group")
+public class MotoGroup {
     /**
      * 主键
      */
@@ -11,9 +11,9 @@ public class DayBatch {
     private Integer id;
 
     /**
-     * 当日批次
+     * 车队组
      */
-    private Integer current;
+    private String name;
 
     /**
      * 获取主键
@@ -34,20 +34,20 @@ public class DayBatch {
     }
 
     /**
-     * 获取当日批次
+     * 获取车队组
      *
-     * @return current - 当日批次
+     * @return name - 车队组
      */
-    public Integer getCurrent() {
-        return current;
+    public String getName() {
+        return name;
     }
 
     /**
-     * 设置当日批次
+     * 设置车队组
      *
-     * @param current 当日批次
+     * @param name 车队组
      */
-    public void setCurrent(Integer current) {
-        this.current = current;
+    public void setName(String name) {
+        this.name = name;
     }
 }

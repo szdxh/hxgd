@@ -13,9 +13,9 @@
         </plugin>
 
         <jdbcConnection driverClass="com.mysql.jdbc.Driver"
-                        connectionURL="jdbc:mysql://192.168.3.4:3306/bi"
-                        userId="root"
-                        password="123456">
+                        connectionURL="jdbc:mysql://47.112.148.125:3306/logistic_bi"
+                        userId="wb"
+                        password="201974">
         </jdbcConnection>
 
         <!-- 对于生成的pojo所在包 -->
@@ -44,6 +44,8 @@
 		<table tableName="huowu"></table>
 		<table tableName="materials"></table>
 		<table tableName="motorcade"></table>
+		<table tableName="moto_group"></table>
+		<table tableName="moto_group_info"></table>
 		<table tableName="msg"></table>
 		<table tableName="route"></table>
 		<table tableName="section"></table>

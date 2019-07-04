@@ -12,5 +12,7 @@
     <result column="driver" property="driver" jdbcType="INTEGER" />
     <result column="state" property="state" jdbcType="INTEGER" />
     <result column="position" property="position" jdbcType="VARCHAR" />
+    <result column="area" property="area" jdbcType="VARCHAR" />
+    <result column="area_carid" property="areaCarid" jdbcType="VARCHAR" />
   </resultMap>
 </mapper>

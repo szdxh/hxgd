@@ -41,8 +41,6 @@
     <result column="down_submit_time" property="downSubmitTime" jdbcType="TIMESTAMP" />
     <result column="isUp" property="isup" jdbcType="INTEGER" />
     <result column="isDown" property="isdown" jdbcType="INTEGER" />
-    <result column="remarkUp" property="remarkup" jdbcType="VARCHAR" />
-    <result column="remarkDown" property="remarkdown" jdbcType="VARCHAR" />
     <result column="isChangeCar" property="ischangecar" jdbcType="INTEGER" />
     <result column="beforeCar" property="beforecar" jdbcType="VARCHAR" />
     <result column="upOverTime" property="upovertime" jdbcType="TIMESTAMP" />
@@ -51,5 +49,15 @@
     <result column="errorFile" property="errorfile" jdbcType="VARCHAR" />
     <result column="isUpOver" property="isupover" jdbcType="INTEGER" />
     <result column="isTraverOver" property="istraverover" jdbcType="INTEGER" />
+    <result column="remarkUp" property="remarkup" jdbcType="VARCHAR" />
+    <result column="remarkDown" property="remarkdown" jdbcType="VARCHAR" />
+    <result column="zhibao" property="zhibao" jdbcType="VARCHAR" />
+    <result column="refuse_text" property="refuseText" jdbcType="VARCHAR" />
+    <result column="sgdh" property="sgdh" jdbcType="VARCHAR" />
+    <result column="beizhu" property="beizhu" jdbcType="VARCHAR" />
+    <result column="ischangeroute" property="ischangeroute" jdbcType="INTEGER" />
+    <result column="beforesection_id" property="beforesectionId" jdbcType="INTEGER" />
+    <result column="gaixian" property="gaixian" jdbcType="VARCHAR" />
+    <result column="gaixiant" property="gaixiant" jdbcType="TIMESTAMP" />
   </resultMap>
 </mapper>

@@ -51,5 +51,7 @@
     <result column="errorFile" property="errorfile" jdbcType="VARCHAR" />
     <result column="isUpOver" property="isupover" jdbcType="INTEGER" />
     <result column="isTraverOver" property="istraverover" jdbcType="INTEGER" />
+    <result column="zhibao" property="zhibao" jdbcType="VARCHAR" />
+    <result column="refuse_text" property="refuseText" jdbcType="VARCHAR" />
   </resultMap>
 </mapper>
