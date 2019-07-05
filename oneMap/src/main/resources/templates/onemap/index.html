@@ -40,6 +40,15 @@
 				 	  <input type="button" value="查询油耗" onclick="fuel()" />
 				</form>
        		</div>
+       		
+       		<div id="bottom">
+       			<form action="" method="get">
+				 	 <input id="showEveryCar" type="buttoon" value="显示所有车辆位置" onclick="getCarLocation()"/>
+				 	<input id="showRadiusCar" type="buttoon" value="显示半径范围10公里" onclick=""/>
+				 	
+				</form>
+       		
+       		</div>
        </div>
       <div th:fragment="scripts(scripts)">
 	        <script th:inline="javascript">
@@ -152,6 +161,68 @@
 		      	}
 			
 		})
+		}
+		
+		var thisJs = this;
+		function getCarLocation(){
+			$.ajax({
+				url:"http://192.168.3.12:8080/oneMap/car/getCarposition", 
+				type:"POST",
+				dataType:"json",
+				success: function(datas){
+					var radiusCircle  = new BMap.Circle(point,10000, {
+		                strokeColor:"#e61623", //线颜色
+		                strokeWeight:2, //线宽
+		                fillColor:"#f18900", // 填充色
+		                fillOpacity:'0.1',  // 填充透明度
+		            } );
+					var notnullPositionarr = [];
+					var positionArr = [];
+					 map.addOverlay(radiusCircle);
+						datas.data.forEach((item,index,datas)=> {
+							if(item["position"]!=null){
+					
+								var splitArr =  item["position"].split(",");
+							positionArr.push( new BMap.Point(splitArr[0], splitArr[1]));
+								
+								
+								
+								 
+						
+							}
+						
+						});
+				
+						//接下来调用测距Api；
+						thisJs.getDistance(positionArr);
+		       
+		      	},
+		      	error:function(e){
+		      		console.log(e)
+		      	}
+			
+		})
+		}
+		
+		//调用测距Api，当测距符合条件就添加到数组里面，最后进行返回；
+		function getDistance(arr){
+			
+			var radiusPoint = [];
+			
+			arr.forEach((item,index,datas)=> {
+				
+				//这个地方不能用小于符号，不然解析异常
+				if(10000>123){
+					alert(123)
+					 
+					map.addOverlay(new BMap.Marker(item,{icon:myIcon}));//将标注添加到地图中 
+					
+				 	 }
+					
+					 
+			
+				})
+
 		}
 			
 		
