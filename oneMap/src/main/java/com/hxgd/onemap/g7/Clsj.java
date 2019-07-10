@@ -1,7 +1,6 @@
 package com.hxgd.onemap.g7;
 
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 import com.hxgd.onemap.util.G7Util;

@@ -3,16 +3,35 @@
     <head>
         <meta charset="UTF-8" />
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />  
+        <!--响应式布局bootstrap  -->
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"/>
         <title>一张图物流管理系统</title>
         <style type="text/css">  
 			html{height:100%}  
 			body{height:100%;margin:0px;padding:0px}  
 			#bodys{height:500px;width:100%}  
 		</style>  
+		
         <script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&amp;ak=qPD0GxOf7PGIlKGoWMho6d5uHQvL7SH8">
 		</script>
 		<script type="text/javascript" src="https://code.jquery.com/jquery-3.4.1.min.js">
 		</script>
+	<!-- Latest compiled and minified CSS -->
+<link rel="stylesheet" href="https://cdn.bootcss.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous"/>
+<link rel="stylesheet" href="https://unpkg.com/bootstrap-table@1.15.2/dist/bootstrap-table.min.css"/>
+
+
+<!-- Latest compiled and minified JavaScript -->
+<script src="https://unpkg.com/bootstrap-table@1.15.2/dist/bootstrap-table.min.js"></script>
+<!-- Latest compiled and minified Locales -->
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js" integrity="sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut" crossorigin="anonymous"></script>
+
+
+<script src="https://cdn.bootcss.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+
+
+<script src="https://unpkg.com/bootstrap-table@1.15.2/dist/locale/bootstrap-table-zh-CN.min.js"></script>
 		
 		<!-- 如果不使用base,那么这种方式也是可以的,@{/你的文件路径},缺陷就是每次引用都必须带上th:src="@{/}"这个才能正确引用,具体用什么方式,看你们自己 -->
     <script th:src="@{/js/laydate/laydate.js}"></script>
@@ -49,6 +68,13 @@
 				</form>
        		
        		</div>
+       		
+       		<div >
+       			<table id="testtable" class=" table-striped table-dark">
+       			
+       			</table>
+       		
+       		</div>
        </div>
       <div th:fragment="scripts(scripts)">
 	        <script th:inline="javascript">
@@ -58,6 +84,59 @@
 	        </script>
 		</div> 
            <script type="text/javascript">
+           
+           $('#testtable').bootstrapTable({
+        		method : 'post',
+        		url : "http://192.168.3.12:8080/oneMap/car/bootstraptablegetCarposition",//请求路径
+        		striped : true, //是否显示行间隔色
+        		pageNumber : 1, //初始化加载第一页
+        		pagination : true,//是否分页
+        		sidePagination : 'client',//server:服务器端分页|client：前端分页
+        		search: true,  
+        		pageSize : 5,//单页记录数
+        		pageList : [ 5, 10, 20, 30 ],//可选择单页记录数
+        		columns : [ {
+        			title : 'id',
+        			field : 'id',
+        		}, {
+        			title : 'motoId',
+        			field : 'motoId',
+        		}, {
+        			title : 'type',
+        			field : 'type',
+        		}, {
+        			title : '车牌号',
+        			field : 'license',
+        		}, {
+        			title : '司机id',
+        			field : 'driver',
+        		} , {
+        			title : 'state',
+        			field : 'state',
+        		}, {
+        			title : 'position',
+        			field : 'position',
+        		}, {
+        			title : 'area',
+        			field : 'area',
+        		}, {
+        			title : 'areaCarid',
+        			field : 'areaCarid',
+        		}]
+        	});
+           
+           $('#testtable').on('click-row.bs.table', function (row,$element, field,) {
+        	  console.log($element["position"]);
+        	  var position  = $element["position"];
+        	  if(position!=null){
+        		  var posiArr =  position.split(",");
+        		  map.setCenter(new BMap.Point(posiArr[0],posiArr[1]))
+        	  }
+        	 })
+        	 
+   
+        
+
            
            laydate.render({
         	   elem: '#chooseDataStart' ,
@@ -77,8 +156,8 @@
         	   type:'datetime'
         	 });
 		var map = new BMap.Map("bodys"); 
-		var mapStyle={  style : "midnight" }  
-		map.setMapStyle(mapStyle);
+		/* var mapStyle={  style : "midnight" }  
+		map.setMapStyle(mapStyle); */
 		// 创建地图实例 
 	
 	 	var lng =   window.lng;
@@ -212,22 +291,20 @@
 			arr.forEach((item,index,datas)=> {
 				
 				//这个地方不能用小于符号，不然解析异常
-				if(10000>123){
-					alert(123)
-					 
-					map.addOverlay(new BMap.Marker(item,{icon:myIcon}));//将标注添加到地图中 
-					
-				 	 }
-					
-					 
-			
-				})
+				if(10000>map.getDistance(point,item)){
+					 var mark = new BMap.Marker(item,{icon:myIcon});
+					 var infoWindow = new BMap.InfoWindow("123321");
+					 mark.addEventListener("click", 
+							 function () 
+							 { 
+						 this.openInfoWindow(infoWindow)
+						 ; });
 
+				
+					     map.addOverlay(mark);//将标注添加到地图中 
+				 	 }
+				})
 		}
-			
-		
-		
-		
 	</script>  
     </body>
 
