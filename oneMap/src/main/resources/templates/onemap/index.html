@@ -26,15 +26,10 @@
 <!-- Latest compiled and minified Locales -->
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js" integrity="sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut" crossorigin="anonymous"></script>
-
-
 <script src="https://cdn.bootcss.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
-
-
 <script src="https://unpkg.com/bootstrap-table@1.15.2/dist/locale/bootstrap-table-zh-CN.min.js"></script>
-		
-		<!-- 如果不使用base,那么这种方式也是可以的,@{/你的文件路径},缺陷就是每次引用都必须带上th:src="@{/}"这个才能正确引用,具体用什么方式,看你们自己 -->
-    <script th:src="@{/js/laydate/laydate.js}"></script>
+<!-- 如果不使用base,那么这种方式也是可以的,@{/你的文件路径},缺陷就是每次引用都必须带上th:src="@{/}"这个才能正确引用,具体用什么方式,看你们自己 -->
+<script th:src="@{/js/laydate/laydate.js}"></script>
       
 		
     </head> 
@@ -62,8 +57,11 @@
        		
        		<div id="bottom">
        			<form action="" method="get">
-				 	 <input id="showEveryCar" type="buttoon" value="显示所有车辆位置" onclick="getCarLocation()"/>
-				 	<input id="showRadiusCar" type="buttoon" value="显示半径范围10公里" onclick=""/>
+				 	 <input id="showEveryCar" type="buttoon" value="显示所有车辆位置" onclick="showCarPosition()"/>
+				 	 <select id="areaSelect" onchange="areaCarChange(this)">
+				 	 
+				 	 </select>
+				 	<input id="showRadiusCar" type="buttoon" value="显示半径范围10公里车辆" onclick="getCarLocation()"/>
 				 	
 				</form>
        		
@@ -84,10 +82,51 @@
 	        </script>
 		</div> 
            <script type="text/javascript">
+           var thisJs = this;
+           var fields = ["loc"];
+       	$.ajax({
+			url:"http://localhost:8080/oneMap/car/getCarposition", 
+			type:"POST",
+			dataType:"JSON",
+			async:false,
+			success: function(datas){
+				window.catData =  datas.data;
+				var areaArr = [];
+				var bool = false;
+				
+				window.catData.forEach((item1,index1,data1)=> {
+					bool = false;
+					areaArr.forEach((item2,index2,data2)=> {
+						if(item2==item1["area"]){
+							bool = true;
+							return;
+						}
+					});
+					if(!bool){
+						areaArr.push(item1["area"]);
+					}
+					
+				});
+				var str = "<option>请选择标段</option>";
+				areaArr.forEach((item,index,data)=> {
+					str+="<option>"+item+"</option>";
+				});
+				$("#areaSelect").append(str);
+				
+	      	},
+	      	error:function(e){
+	      		alert("服务异常。请刷新后重试");
+	      	}
+		
+	})
            
+	
+	
+	
+	
            $('#testtable').bootstrapTable({
         		method : 'post',
-        		url : "http://192.168.3.12:8080/oneMap/car/bootstraptablegetCarposition",//请求路径
+        		url : "http://localhost:8080/oneMap/car/bootstraptablegetCarposition",//请求路径
         		striped : true, //是否显示行间隔色
         		pageNumber : 1, //初始化加载第一页
         		pagination : true,//是否分页
@@ -133,10 +172,6 @@
         		  map.setCenter(new BMap.Point(posiArr[0],posiArr[1]))
         	  }
         	 })
-        	 
-   
-        
-
            
            laydate.render({
         	   elem: '#chooseDataStart' ,
@@ -156,40 +191,31 @@
         	   type:'datetime'
         	 });
 		var map = new BMap.Map("bodys"); 
-		/* var mapStyle={  style : "midnight" }  
-		map.setMapStyle(mapStyle); */
-		// 创建地图实例 
-	
 	 	var lng =   window.lng;
 		var lat =   window.lat; 
-		
-	
 		var point = new BMap.Point(lng, lat);
 		// 创建点坐标  
 		map.centerAndZoom(point, 15);
 		// 初始化地图，设置中心点坐标和地图级别  
 		map.enableScrollWheelZoom(true);     //开启鼠标滚轮缩放
-		
 		var myIcon = new BMap.Icon("http://api.map.baidu.com/img/markers.png", new BMap.Size(23, 25));
 		var mk = new BMap.Marker(point,{icon:myIcon});//创建标注图标
 		map.addOverlay(mk);//将标注添加到地图中
-		
 		function history_location(){
+			map.clearOverlays();
 			var plate_num =  window.plate_num;
 			var startTime = $("#chooseDataStart").val();
 			var endTime = $("#chooseDataEnd").val();
-				
 			$.ajax({
-				url:"http://192.168.3.12:8080/oneMap/test/history_location", 
+				url:"http://localhost:8080/oneMap/test/history_location", 
 				type:"POST",
-				dataType:"json",
+				dataType:"JSON",
 				data:{
 					"plate_num":plate_num,
 					"startTime":startTime,
 					"endTime":endTime
 				},
 				success: function(datas){
-					
 					var arrs = [];
 					datas.forEach((item,index,datas)=> {
 						arrs.push(new BMap.Point(datas[index]["lng"],datas[index]["lat"]))
@@ -200,16 +226,11 @@
 					map.addOverlay(polyline);
 					//创建小车图片
 				 	var carIconstart = new BMap.Icon("http://api.map.baidu.com/img/markers.png", new BMap.Size(23, 25));
-					
 					var carIconend = new BMap.Icon("http://api.map.baidu.com/img/markers.png", new BMap.Size(23, 25));
-					
 					var start = new BMap.Marker(arrs[0],{icon:carIconstart});//创建标注图标
 					var end = new BMap.Marker(arrs[arrs.length-1],{icon:carIconend});//创建标注图标
-			
 					map.addOverlay(start);
 					map.addOverlay(end); 
-					map.removeOverlay(mk);
-		       
 		      	},
 		      	error:function(e){
 		      		console.log(e)
@@ -226,9 +247,9 @@
 				/*]]>*/
 		
 			$.ajax({
-				url:"http://192.168.3.12:8080/oneMap/test/fuel"+params, 
+				url:"http://localhost:8080/oneMap/test/fuel"+params, 
 				type:"get",
-				dataType:"json",
+				dataType:"JSON",
 				success: function(datas){
 					console.log("油耗数据=="+datas["fuel"])
 					console.log("驾驶时长=="+datas["driving_time"])
@@ -238,17 +259,59 @@
 		      	error:function(e){
 		      		console.log(e)
 		      	}
-			
 		})
 		}
 		
-		var thisJs = this;
+		//监听下拉框当有变动的时候就在地图上画出点位
+		function areaCarChange(obj){
+			if(obj!="请选择标段"){
+				$.ajax({
+					url:"http://localhost:8080/oneMap/car/getAreaCarLicense",
+					type:"post",
+					dataType:"JSON",
+					data:{
+						area:obj.value
+					},
+					async:false,
+					success: function(datas){
+						var areaLicenseposition =  thisJs.getG7AllCarPosition(datas,fields);
+							map.clearOverlays();
+							
+								Object.keys(areaLicenseposition).forEach(function(key){
+									if(areaLicenseposition[key]["data"]!=null){
+										 var mark = new BMap.Marker(new BMap.Point(areaLicenseposition[key]["data"]["loc"]["lng"],areaLicenseposition[key]["data"]["loc"]["lat"]),{icon:myIcon});
+										 var infoWindow = new BMap.InfoWindow(areaLicenseposition[key]["plate_num"]);
+										 mark.addEventListener("click", function () { 
+											 this.openInfoWindow(infoWindow);
+										 });
+									 map.addOverlay(mark);//将标注添加到地图中 
+									}
+								
+							});
+			      	},
+			      	error:function(e){
+			      		console.log(e)
+			      	}
+			})
+			}
+		}
+		
+		
+		//获取有哪些车牌号
+		var license = [];
+		window.catData.forEach((item,index,datas)=> {
+			license.push(item["license"]);
+		});
+		
+		var arr1 = license.slice(0,100);//第一次的数组
+		var arr2 = license.slice(100);//第二次的数组
+		//获取g7需要的数据
+		var g7PositionArr = [];
+		
+		g7PositionArr.push(thisJs.getG7AllCarPosition(arr1,fields));
+		g7PositionArr.push(thisJs.getG7AllCarPosition(arr2,fields));
 		function getCarLocation(){
-			$.ajax({
-				url:"http://192.168.3.12:8080/oneMap/car/getCarposition", 
-				type:"POST",
-				dataType:"json",
-				success: function(datas){
+			map.clearOverlays();
 					var radiusCircle  = new BMap.Circle(point,10000, {
 		                strokeColor:"#e61623", //线颜色
 		                strokeWeight:2, //线宽
@@ -257,53 +320,78 @@
 		            } );
 					var notnullPositionarr = [];
 					var positionArr = [];
-					 map.addOverlay(radiusCircle);
-						datas.data.forEach((item,index,datas)=> {
-							if(item["position"]!=null){
-					
-								var splitArr =  item["position"].split(",");
-							positionArr.push( new BMap.Point(splitArr[0], splitArr[1]));
-								
-								
-								
-								 
-						
-							}
-						
-						});
 				
-						//接下来调用测距Api；
-						thisJs.getDistance(positionArr);
-		       
+					map.addOverlay(radiusCircle);
+				//声明需要剔除的车牌号
+				var hasNotArr = [];
+				g7PositionArr.forEach((item1,index1,datas1)=> {
+					Object.keys(item1).forEach(function(key){
+						if(item1[key]["data"]!=null){
+							var linshipoint = new BMap.Point(item1[key]["data"]["loc"]["lng"],item1[key]["data"]["loc"]["lat"]);
+							if(10000>map.getDistance(point,linshipoint)){
+								var mark = new BMap.Marker(linshipoint,{icon:myIcon});
+								 var infoWindow = new BMap.InfoWindow(item1[key]["plate_num"]);
+								 mark.addEventListener("click",function (){ 
+									 this.openInfoWindow(infoWindow);
+									 });
+								     map.addOverlay(mark);//将标注添加到地图中 
+							 	 }else{
+							//添加进需要剔除的车牌号
+							hasNotArr.push(item1[key]);
+							} 
+						}
+					});
+				})
+					//接下来调用测距Api；
+					thisJs.getDistance(positionArr);
+		}
+		
+		//根据车牌号获取所有的定位数据
+		function getG7AllCarPosition(license,fields){
+			var arr;
+			$.ajax({
+				url:"http://localhost:8080/oneMap/car/getG7AllCarPosition", 
+				type:"post",
+				dataType:"JSON",
+				async:false,
+				data:{
+					"plate_nums":JSON.stringify(license),
+					"fields":JSON.stringify(fields)
+				},
+				success: function(datas){
+					arr = datas.data
 		      	},
 		      	error:function(e){
-		      		console.log(e)
+		      		console.log("获取第数据错误")
 		      	}
-			
-		})
+			})
+			return arr;
 		}
 		
 		//调用测距Api，当测距符合条件就添加到数组里面，最后进行返回；
 		function getDistance(arr){
-			
 			var radiusPoint = [];
-			
 			arr.forEach((item,index,datas)=> {
-				
 				//这个地方不能用小于符号，不然解析异常
-				if(10000>map.getDistance(point,item)){
-					 var mark = new BMap.Marker(item,{icon:myIcon});
-					 var infoWindow = new BMap.InfoWindow("123321");
-					 mark.addEventListener("click", 
-							 function () 
-							 { 
-						 this.openInfoWindow(infoWindow)
-						 ; });
-
-				
-					     map.addOverlay(mark);//将标注添加到地图中 
-				 	 }
+			
 				})
+		}
+		
+		//显示所有的车的信息
+		function showCarPosition(){
+			map.clearOverlays();
+			g7PositionArr.forEach((item1,index1,datas1)=> {
+				Object.keys(item1).forEach(function(key){
+					if(item1[key]["data"]!=null){
+						 var mark = new BMap.Marker(new BMap.Point(item1[key]["data"]["loc"]["lng"],item1[key]["data"]["loc"]["lat"]),{icon:myIcon});
+						 var infoWindow = new BMap.InfoWindow(item1[key]["plate_num"]);
+						 mark.addEventListener("click", function () { 
+							 this.openInfoWindow(infoWindow);
+						 });
+					 map.addOverlay(mark);//将标注添加到地图中 
+					}
+				});
+			});
 		}
 	</script>  
     </body>

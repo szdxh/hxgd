@@ -15,4 +15,15 @@
     <result column="area" property="area" jdbcType="VARCHAR" />
     <result column="area_carid" property="areaCarid" jdbcType="VARCHAR" />
   </resultMap>
+  
+  <select id="getAreaList" resultType="java.lang.String">
+	  	SELECT area from car 
+		GROUP BY area
+  </select>
+  
+  <select id="getAreaCarLicense" parameterType="java.lang.String" resultType="java.lang.String">
+  		select license from car
+		where area = #{area}
+  </select>
+  
 </mapper>

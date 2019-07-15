@@ -1,6 +1,7 @@
 package com.hxgd.onemap.g7;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import com.hxgd.onemap.util.G7Util;
@@ -166,10 +167,10 @@ public class Clsj {
 	* @return String    返回类型
 	* @throws
 	 */
-	public static String current_location(String plate_num,String map) throws Exception {
+	public static String current_location(String plate_num) throws Exception {
 		Map <String,String>params = new HashMap<String,String>();
 		params.put("plate_num", plate_num);
-		params.put("map", map);
+		params.put("map", "baidu");
 		return G7Util.getRest("/v1/device/truck/current_location", params);
 	}
 	
@@ -193,6 +194,14 @@ public class Clsj {
 		params.put("orgcode", orgcode);
 		params.put("oids", oids);
 		return G7Util.postRest("/v1/truck/event/get_event_truck", getBodyJsonString.getBodyParams(params));
+	}
+	
+	
+	public static String batch(String plate_nums,String fields)throws Exception {
+		Map<String,String> params = new HashMap<String,String>();
+		params.put("plate_nums",plate_nums );
+		params.put("fields", fields);
+		return G7Util.postRest("/v1/device/truck/current_info/batch", getBodyJsonString.getBodyArrParams(params));
 	}
 	
 	/**

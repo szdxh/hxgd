@@ -30,7 +30,6 @@ public class AreaController {
 	public LeeJSONResult getCarposition() {
 		return  LeeJSONResult.build(200, "定位返回成功", areaServiceImpl.getCarposition());
 		
-		
 	}
 
 }

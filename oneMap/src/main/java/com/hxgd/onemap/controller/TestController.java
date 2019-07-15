@@ -1,7 +1,5 @@
 package com.hxgd.onemap.controller;
 
-import java.util.ArrayList;
-import java.util.List;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -33,7 +31,7 @@ public class TestController {
 	@RequestMapping("/current_location")
 	public String current_location( @RequestParam String plate_num,ModelMap map) throws Exception {
 	
-		G7Response res =   JSON.parseObject( Clsj.current_location(plate_num,"map"), G7Response.class);
+		G7Response res =   JSON.parseObject( Clsj.current_location(plate_num), G7Response.class);
 
 		G7DataCurrent_location data =  JSON.parseObject(res.getData(),G7DataCurrent_location.class);
 		map.addAttribute("G7DataCurrent_location",data);
